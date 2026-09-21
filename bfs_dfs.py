@@ -19,10 +19,10 @@ def create_graph(depth):
     return graph
 
 
-graph = create_graph(14)
+graph = create_graph(6)
 
 start_node = 0
-goal_node = 2 ** 13 - 1
+goal_node = 1
 
 
 def bfs(graph, start, goal):
@@ -75,15 +75,23 @@ if __name__ == "__main__":
     bfs_times = []
     dfs_times = []
 
+    repetitions = 50000
+
     for i in range(3):
         start_time = time.perf_counter()
-        bfs_nodes = bfs(graph, start_node, goal_node)
-        bfs_time = time.perf_counter() - start_time
+
+        for j in range(repetitions):
+            bfs_nodes = bfs(graph, start_node, goal_node)
+
+        bfs_time = (time.perf_counter() - start_time) / repetitions
         bfs_times.append(bfs_time)
 
         start_time = time.perf_counter()
-        dfs_nodes = dfs(graph, start_node, goal_node)
-        dfs_time = time.perf_counter() - start_time
+
+        for j in range(repetitions):
+            dfs_nodes = dfs(graph, start_node, goal_node)
+
+        dfs_time = (time.perf_counter() - start_time) / repetitions
         dfs_times.append(dfs_time)
 
     print("BFS nodes explored:", bfs_nodes)
