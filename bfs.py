@@ -21,9 +21,7 @@ def create_graph(depth):
 
 
 graph = create_graph(6)
-
 start_node = 0
-goal_node = 1
 
 
 def bfs(graph, start, goal):
@@ -50,20 +48,35 @@ def bfs(graph, start, goal):
     return nodes_explored
 
 
+cases = {
+    "Best Case": 1,
+    "Average Case": 15,
+    "Worst Case": 62
+}
+
+
 if __name__ == "__main__":
 
-    bfs_times = []
     repetitions = 50000
 
-    for i in range(3):
-        start_time = time.perf_counter()
+    for case, goal_node in cases.items():
 
-        for j in range(repetitions):
-            bfs_nodes = bfs(graph, start_node, goal_node)
+        bfs_times = []
 
-        bfs_time = (time.perf_counter() - start_time) / repetitions
-        bfs_times.append(bfs_time)
+        for i in range(3):
 
-    print("BFS nodes explored:", bfs_nodes)
-    print("BFS times:", bfs_times)
-    print("BFS average time:", sum(bfs_times) / len(bfs_times))
+            start_time = time.perf_counter()
+
+            for j in range(repetitions):
+                bfs_nodes = bfs(graph, start_node, goal_node)
+
+            bfs_time = (time.perf_counter() - start_time) / repetitions
+            bfs_times.append(bfs_time)
+
+        average_time = sum(bfs_times) / len(bfs_times)
+
+        print("\n" + case)
+        print("Goal node:", goal_node)
+        print("BFS nodes explored:", bfs_nodes)
+        print("BFS times:", bfs_times)
+        print("BFS average time:", average_time)

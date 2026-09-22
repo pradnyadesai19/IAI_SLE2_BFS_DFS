@@ -20,9 +20,7 @@ def create_graph(depth):
 
 
 graph = create_graph(6)
-
 start_node = 0
-goal_node = 1
 
 
 def dfs(graph, start, goal):
@@ -49,21 +47,34 @@ def dfs(graph, start, goal):
     return nodes_explored
 
 
+cases = {
+    "Best Case": 2,
+    "Average Case": 47,
+    "Worst Case": 31
+}
+
 if __name__ == "__main__":
 
-    dfs_times = []
     repetitions = 50000
 
-    for i in range(3):
-        start_time = time.perf_counter()
+    for case, goal_node in cases.items():
 
-        for j in range(repetitions):
-            dfs_nodes = dfs(graph, start_node, goal_node)
+        dfs_times = []
 
-        dfs_time = (time.perf_counter() - start_time) / repetitions
-        dfs_times.append(dfs_time)
+        for i in range(3):
 
-    print("DFS nodes explored:", dfs_nodes)
-    print("DFS times:", dfs_times)
-    print("DFS average time:", sum(dfs_times) / len(dfs_times))
-    
+            start_time = time.perf_counter()
+
+            for j in range(repetitions):
+                dfs_nodes = dfs(graph, start_node, goal_node)
+
+            dfs_time = (time.perf_counter() - start_time) / repetitions
+            dfs_times.append(dfs_time)
+
+        average_time = sum(dfs_times) / len(dfs_times)
+
+        print("\n" + case)
+        print("Goal node:", goal_node)
+        print("DFS nodes explored:", dfs_nodes)
+        print("DFS times:", dfs_times)
+        print("DFS average time:", average_time)
